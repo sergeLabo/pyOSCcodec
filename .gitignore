@@ -1,14 +1,14 @@
-# http://www.gnu.org/software/automake
+# pyhton cache
+__pycache__/
+*.pyc
+__pycache__
 
-Makefile.in
+# Geany
+*.geany
 
-# http://www.gnu.org/software/autoconf
-
-/autom4te.cache
-/aclocal.m4
-/compile
-/configure
-/depcomp
-/install-sh
-/missing
-/stamp-h1
+# Blender
+*.blend1
+*.blend2
+*.blend3
+*.blend4
+*.blend5
