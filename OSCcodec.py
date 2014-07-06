@@ -36,14 +36,11 @@ Streaming support (OSC over TCP):
 
 Sources at:
 https://gitorious.org/pyosc/devel/source/6aaf78b0c1e89942a9c5b1952266791b7ae16012:
-and
-https://gitorious.org/pyosc/devel/commit/febccde3e36bb158b44f0235dd340ab324aa10a5
-
-2 Mar. 2013
-    Added True and False nonstandard type tag
 
 23 June 2014
     Changed 'latin1' to 'utf8'
+6 July 2014
+    Bug in OSCString(next) with "éè" but "é" and "è" are good
 
 Use decodeOSC(data) to convert a binary OSC message data to a Python list.
 Use OSCMessage() and OSCBundle() to create OSC message.
@@ -581,7 +578,7 @@ def OSCString(next):
     The string ends with 1 to 4 zero-bytes ('\x00')
     """
     OSCstringLength = math.ceil((len(next)+1) / 4.0) * 4
-    return struct.pack(">%ds" % (OSCstringLength), str(next).encode('utf8'))
+    return struct.pack(">%ds" % (OSCstringLength), next.encode('utf8'))
 
 def OSCBlob(next):
     """Convert a string into an OSC Blob.
@@ -745,25 +742,11 @@ def _readDouble(data):
 
     return (float, rest)
 
-def _readFalse(data):
-    """ (non standard) OSC Type tag: 'F'
-    False. No bytes are allocated in the argument data.
-    """
-
-    return (False, data)
-
-def _readTrue(data):
-    """ (non standard) OSC Type tag: 'T'
-    True. No bytes are allocated in the argument data.
-    """
-
-    return (True, data)
-
 def decodeOSC(data):
     """Converts a binary OSC message to a Python list.
     """
     table = {"i":_readInt, "f":_readFloat, "s":_readString, "b":_readBlob,
-            "d":_readDouble, "t":_readTimeTag, "F":_readFalse, "T":_readTrue}
+            "d":_readDouble, "t":_readTimeTag}
     decoded = []
     address,  rest = _readString(data)
     if address.startswith(","):
@@ -812,6 +795,10 @@ if __name__ == '__main__':
 
     print("Create some OSC message and bundle:\n")
     msg = OSCMessage("/my/osc/address")
+    msg.append('è')
+    ##print(msg)
+    ##msg.append('créées') this word exist in french --> bug
+    print(msg)
     msg.append('something')
     print(msg)
     msg.insert(0, 'something else')

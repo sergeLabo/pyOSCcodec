@@ -17,20 +17,23 @@ Streaming support (OSC over TCP):
 
 Sources at:
 https://gitorious.org/pyosc/devel/source/6aaf78b0c1e89942a9c5b1952266791b7ae16012:
-and
-https://gitorious.org/pyosc/devel/commit/febccde3e36bb158b44f0235dd340ab324aa10a5
+
+23 June 2014
+    Changed 'latin1' to 'utf8'
+6 July 2014
+    Bug in OSCString(next) with "éè" but "é" and "è" are good
+
+Use decodeOSC(data) to convert a binary OSC message data to a Python list.
+Use OSCMessage() and OSCBundle() to create OSC message.
 
 #### ChangeLog
-
-2 Mar. 2013
-    Added True and False nonstandard type tag
 
 23 June 2014
     Changed 'latin1' to 'utf8'
 
 #### Documentation
 
-wiki
+OSCcodec.html in master directory
 
 #### Usage
 
@@ -42,6 +45,15 @@ Use decodeOSC(data) to convert a binary OSC message data to a Python list.
 
 Use OSCMessage() and OSCBundle() to create OSC message.
 
+#### Test
+
+Run in terminal
+
+python3 send_receive.py
 
 #### Credits
 * Labomedia
+
+#### License
+pyOSCcodec is released under the GENERAL PUBLIC LICENSE Version 2, June 1991.
+See the bundled LICENSE file for details.
