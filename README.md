@@ -8,17 +8,17 @@ This script is a part of :
 
 SimpleOSC:
 
-    Copyright (c) Daniel Holth & Clinton McChesney.
+Copyright (c) Daniel Holth & Clinton McChesney.
 
 pyOSC:
 
-    Copyright (c) 2008-2010, Artem Baguinski <artm@v2.nl> et al., Stock,
-    V2_Lab, Rotterdam, Netherlands.
+Copyright (c) 2008-2010, Artem Baguinski <artm@v2.nl> et al., Stock,
+V2_Lab, Rotterdam, Netherlands.
 
 Streaming support (OSC over TCP):
 
-    Copyright (c) 2010 Uli Franke <uli.franke@weiss.ch>, Weiss Engineering,
-    Uster, Switzerland.
+Copyright (c) 2010 Uli Franke <uli.franke@weiss.ch>, Weiss Engineering,
+Uster, Switzerland.
 
 Sources at:
 
@@ -32,15 +32,15 @@ Use OSCMessage() and OSCBundle() to create OSC message.
 
 23 June 2014:
 
-    Changed 'latin1' to 'utf8'
+- Changed 'latin1' to 'utf8'
 
 6 July 2014:
 
-    Bug in OSCString(next) with "éè" but "é" and "è" are good
+- Bug in OSCString(next) with "éè" but "é" and "è" are good
 
 ### Documentation
 
-OSCcodec.html in master directory
+See OSCcodec.html in master directory
 
 ### Usage
 
@@ -56,7 +56,7 @@ Use OSCMessage() and OSCBundle() to create OSC message.
 
 Run in terminal
 
-python3 send_receive.py
+ python3 send_receive.py
 
 ### Credits
 
