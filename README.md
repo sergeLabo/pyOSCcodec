@@ -56,7 +56,7 @@ Use OSCMessage() and OSCBundle() to create OSC message.
 
 Run in terminal
 
- python3 send_receive.py
+    python3 send_receive.py
 
 ### Credits
 
