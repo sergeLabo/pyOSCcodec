@@ -20,7 +20,7 @@ Streaming support (OSC over TCP):
 Copyright (c) 2010 Uli Franke <uli.franke@weiss.ch>, Weiss Engineering,
 Uster, Switzerland.
 
-Sources at:
+Original Sources at:
 
 https://gitorious.org/pyosc/devel/source/6aaf78b0c1e89942a9c5b1952266791b7ae16012:
 

@@ -38,9 +38,12 @@ Sources at:
 https://gitorious.org/pyosc/devel/source/6aaf78b0c1e89942a9c5b1952266791b7ae16012:
 
 23 June 2014
-    Changed 'latin1' to 'utf8'
+    Changed 'latin-1' to 'utf-8'
 6 July 2014
-    Bug in OSCString(next) with "éè" but "é" and "è" are good
+    Bug with "éè" but "é" and "è" are good
+    Bug in line 676 in _readString(data) because unicode string
+    is not always multiple of 4 bytes.
+
 
 Use decodeOSC(data) to convert a binary OSC message data to a Python list.
 Use OSCMessage() and OSCBundle() to create OSC message.
@@ -578,7 +581,7 @@ def OSCString(next):
     The string ends with 1 to 4 zero-bytes ('\x00')
     """
     OSCstringLength = math.ceil((len(next)+1) / 4.0) * 4
-    return struct.pack(">%ds" % (OSCstringLength), next.encode('utf8'))
+    return struct.pack(">%ds" % (OSCstringLength), next.encode('utf-8'))
 
 def OSCBlob(next):
     """Convert a string into an OSC Blob.
@@ -588,7 +591,7 @@ def OSCBlob(next):
     The blob ends with 0 to 3 zero-bytes ('\x00')
     """
     if isinstance(next,str):
-        next = next.encode('utf8')
+        next = next.encode('utf-8')
     if isinstance(next,bytes):
         OSCblobLength = math.ceil((len(next)) / 4.0) * 4
         binary = struct.pack(">i%ds" % (OSCblobLength), OSCblobLength, next)
@@ -662,11 +665,16 @@ def OSCTimeTag(time):
 ######
 
 def _readString(data):
-    """Reads the next (null-terminated) block of data
+    """Reads the next (null-terminated) block of data.
+    TODO : bug with some characters combination, ex éè
     """
     length   = data.find(b'\0')
     nextData = int(math.ceil((length+1) / 4.0) * 4)
-    return (data[0:length].decode('utf8'), data[nextData:])
+    try:
+        readstring = (data[0:length].decode('utf-8'), data[nextData:])
+    except:
+        readstring = (data.decode('utf-8'), data)
+    return readstring
 
 def _readBlob(data):
     """Reads the next (numbered) block of data

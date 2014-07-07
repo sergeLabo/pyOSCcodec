@@ -144,6 +144,12 @@ class Send():
         if self.verb:
             print("OSC message sended: {0}".format(msg))
 
+##def raw_string(s):
+    ##if isinstance(s, str):
+        ##s = s.encode('string-escape')
+    ##elif isinstance(s, unicode):
+        ##s = s.encode('unicode-escape')
+    ##return s
 
 if __name__ == "__main__":
     # only to test this script standalone with pure data
@@ -159,36 +165,59 @@ if __name__ == "__main__":
     ip_out = "127.0.0.1"
     port_out = 9000
 
-    my_receiver = Receive(ip_in, port_in, buffer_size, verbose=True)
+    my_receiver = Receive(ip_in, port_in, buffer_size, verbose=False)
 
-    my_sender = Send(verbose=True)
-
-    print("verif decod", decodeOSC(b'/blender/x\x00\x00,f\x00\x00>\xaf\xbcf'))
-
+    my_sender = Send(verbose=False)
+    sleep(3)
     type_list = [
-    1, 1.234587, "Sauvons l'Humanite", [1, 2.456, "toto"],
+    1, 1.234587, "Amour", [1, 2.456, "toto"],
     {1:2, 3:4},
     ]
-    a = 0
+
     print("\n\nTest type")
     for test in type_list:
-        a += 1
-        sleep(0.1)
-        my_sender.simple_send_to("/test/" + str(a), test,
-                                (ip_out, port_out))
-        my_receiver.listen()
+        my_sender.simple_send_to("/test/", test, (ip_out, port_out))
+        sleep(0.01)
+        res = my_receiver.listen()
+        if isinstance(res[2], str):
+            print(test, "=", res[2])
+        else:
+            print(test, "=", res[2:])
 
     print("\n\nTest unicode")
     unicode_list = ['é', 'à', 'é', 'ù', 'î','ê','@','ô','ï','ö','Â',
+                    '[', '}', '{', ']', '|', '#', '~', '%', 'Œ', '<', '>',
+                     'Ä', 'Ö', 'Ü', 'Ô', 'ë', '.', ',', ';', '/', '*', '+', '-',
+                     '0123456789',
+                     'abcdefghijklmnopqrstuvwxyz',
+                     'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
                     'mais enfin', 'é è', '@ é è', 'étù', 'œuvre',
                     "Ô ! léopard semblables,",
                     "N'ont que l'habit pour tous talents!"
                     ]
-    b = 0
+
     for test in unicode_list:
-        b += 1
-        sleep(0.1)
-        print(test)
-        my_sender.simple_send_to("/test/" + str(b), test,
-                                (ip_out, port_out))
-        my_receiver.listen()
+        my_sender.simple_send_to("/test/", test, (ip_out, port_out))
+        sleep(0.01)
+        res = my_receiver.listen()
+        print(test, "=", res[2])
+
+    print("\n\nTest bug unicode")
+    bug_list = ['éé', 'é ù', 'é é', 'à é', 'ù à',
+                "je l'ai emporté à la maison !",
+                "tu es un enfoiré",
+                '''
+    sur un arbre perché,
+    c'était un péché (et non pas pêcher).
+                ''',
+                "à la claire fontaine,\nj'ai chanté tout l'été.",
+                "\n",
+                "j'ai bien un saut de ligne. fin",
+                "合久必分, 分久必合 : « [La Chine] unie se divisera ; dispersée, se recomposera »."
+                ]
+
+    for test in bug_list:
+        my_sender.simple_send_to("/test/", test, (ip_out, port_out))
+        sleep(0.01)
+        res = my_receiver.listen()
+        print(test, "=", res[2])
