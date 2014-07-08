@@ -5,6 +5,8 @@ Code and decode OSC Datagram in python 3.4 and beyond.
 
 String are latin-1 encoded and decoded.
 
+    ISO 8859-1 = ISO/CEI 8859-1 = Latin-1
+
 This script is a part of :
 
 SimpleOSC:
@@ -48,7 +50,7 @@ Use OSCMessage() and OSCBundle() to create OSC message.
 
 Run in terminal
 
-    python3 send_receive.py
+    python3 test.py
 
 ### Credits
 
