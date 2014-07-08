@@ -122,7 +122,7 @@ class Send():
         self.verb = verbose
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-    def _sendto(self, msg, address):
+    def send_to(self, msg, address):
         '''Send msg to address = tuple = (ip:port)
         msg is an OSC message create with OSCMessage()
         address is a tuple.
@@ -140,21 +140,14 @@ class Send():
         simple_send_to((127.0.0.1, 8000), "/spam", 1.023)
         '''
         msg = OSCMessage(title, value)
-        self._sendto(msg, address)
+        self.send_to(msg, address)
         if self.verb:
             print("OSC message sended: {0}".format(msg))
 
-##def raw_string(s):
-    ##if isinstance(s, str):
-        ##s = s.encode('string-escape')
-    ##elif isinstance(s, unicode):
-        ##s = s.encode('unicode-escape')
-    ##return s
 
 if __name__ == "__main__":
-    # only to test this script standalone with pure data
-    # Test only this script in terminal in the example directory
-    # so you can find the scripts directory
+    # impossible character
+    ##'Œ', œ, 合久必分, 分久必合 :
     from time import sleep
 
     buffer_size = 1024
@@ -166,32 +159,46 @@ if __name__ == "__main__":
     port_out = 9000
 
     my_receiver = Receive(ip_in, port_in, buffer_size, verbose=False)
-
     my_sender = Send(verbose=False)
-    sleep(3)
+
+    print("\n\nTest bug unicode\n")
+    test = ['éé éé']
+
+    msg = OSCMessage("/test")
+    msg.append(1)
+    msg.append(test)
+    msg.append("ça va")
+    msg.append("où été")
+    msg.append(1.23)
+
+    my_sender.send_to(msg, (ip_out, port_out))
+    sleep(0.01)
+    res = my_receiver.listen()
+    if res:
+        print(res)
+
+    #######################################################################
     type_list = [
     1, 1.234587, "Amour", [1, 2.456, "toto"],
     {1:2, 3:4},
     ]
-
     print("\n\nTest type")
     for test in type_list:
         my_sender.simple_send_to("/test/", test, (ip_out, port_out))
         sleep(0.01)
         res = my_receiver.listen()
-        if isinstance(res[2], str):
+        if res:
             print(test, "=", res[2])
-        else:
-            print(test, "=", res[2:])
-
+##
+    #######################################################################
     print("\n\nTest unicode")
     unicode_list = ['é', 'à', 'é', 'ù', 'î','ê','@','ô','ï','ö','Â',
-                    '[', '}', '{', ']', '|', '#', '~', '%', 'Œ', '<', '>',
+                    '[', '}', '{', ']', '|', '#', '~', '%', '<', '>',
                      'Ä', 'Ö', 'Ü', 'Ô', 'ë', '.', ',', ';', '/', '*', '+', '-',
                      '0123456789',
                      'abcdefghijklmnopqrstuvwxyz',
                      'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-                    'mais enfin', 'é è', '@ é è', 'étù', 'œuvre',
+                    'mais enfin', 'é è', '@ é è', 'étù', 'oeuvre',
                     "Ô ! léopard semblables,",
                     "N'ont que l'habit pour tous talents!"
                     ]
@@ -200,8 +207,10 @@ if __name__ == "__main__":
         my_sender.simple_send_to("/test/", test, (ip_out, port_out))
         sleep(0.01)
         res = my_receiver.listen()
-        print(test, "=", res[2])
+        if res:
+            print(test, "=", res[2])
 
+    #######################################################################
     print("\n\nTest bug unicode")
     bug_list = ['éé', 'é ù', 'é é', 'à é', 'ù à',
                 "je l'ai emporté à la maison !",
@@ -213,11 +222,16 @@ if __name__ == "__main__":
                 "à la claire fontaine,\nj'ai chanté tout l'été.",
                 "\n",
                 "j'ai bien un saut de ligne. fin",
-                "合久必分, 分久必合 : « [La Chine] unie se divisera ; dispersée, se recomposera »."
+                "dispersée, se recomposera »."
                 ]
 
     for test in bug_list:
         my_sender.simple_send_to("/test/", test, (ip_out, port_out))
         sleep(0.01)
         res = my_receiver.listen()
-        print(test, "=", res[2])
+        if res:
+            print(test, "=", res[2])
+##
+    #######################################################################
+
+

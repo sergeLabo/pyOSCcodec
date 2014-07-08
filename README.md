@@ -1,8 +1,9 @@
 pyOSCcodec
 ==========
 
-Code and decode OSC Datagram in python 3.4 and beyond
+Code and decode OSC Datagram in python 3.4 and beyond.
 
+String are latin-1 encoded and decoded.
 
 This script is a part of :
 
@@ -28,15 +29,6 @@ Use decodeOSC(data) to convert a binary OSC message data to a Python list.
 
 Use OSCMessage() and OSCBundle() to create OSC message.
 
-### ChangeLog
-
-23 June 2014:
-
-- Changed 'latin1' to 'utf8'
-
-6 July 2014:
-
-- Bug in OSCString(next) with "éè" but "é" and "è" are good
 
 ### Documentation
 
