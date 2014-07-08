@@ -52,6 +52,9 @@ Run in terminal
 
     python3 test.py
 
+send_receive.py is a part of https://github.com/sergeLabo/blenderOSC
+
+
 ### Credits
 
 * Labomedia
