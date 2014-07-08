@@ -23,11 +23,8 @@ Streaming&nbsp;support&nbsp;(OSC&nbsp;over&nbsp;TCP):<br>
 Sources&nbsp;at:<br>
 https://gitorious.org/pyosc/devel/source/6aaf78b0c1e89942a9c5b1952266791b7ae16012:<br>
 &nbsp;<br>
-23&nbsp;June&nbsp;2014<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Changed&nbsp;'latin1'&nbsp;to&nbsp;'utf8'<br>
-6&nbsp;July&nbsp;2014<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Bug&nbsp;in&nbsp;<a href="#-OSCString">OSCString</a>(next)&nbsp;with&nbsp;"éè"&nbsp;but&nbsp;"é"&nbsp;and&nbsp;"è"&nbsp;are&nbsp;good<br>
 &nbsp;<br>
+String&nbsp;are&nbsp;latin-1&nbsp;encoded&nbsp;and&nbsp;decoded.<br>
 Use&nbsp;<a href="#-decodeOSC">decodeOSC</a>(data)&nbsp;to&nbsp;convert&nbsp;a&nbsp;binary&nbsp;OSC&nbsp;message&nbsp;data&nbsp;to&nbsp;a&nbsp;Python&nbsp;list.<br>
 Use&nbsp;<a href="#OSCMessage">OSCMessage</a>()&nbsp;and&nbsp;<a href="#OSCBundle">OSCBundle</a>()&nbsp;to&nbsp;create&nbsp;OSC&nbsp;message.</tt></p>
 <p>
@@ -37,9 +34,10 @@ Use&nbsp;<a href="#OSCMessage">OSCMessage</a>()&nbsp;and&nbsp;<a href="#OSCBundl
 <font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
 <tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="math.html">math</a><br>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="binascii.html">binascii</a><br>
+</td><td width="25%" valign=top><a href="math.html">math</a><br>
 </td><td width="25%" valign=top><a href="struct.html">struct</a><br>
-</td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#ee77aa">
 <td colspan=3 valign=bottom>&nbsp;<br>

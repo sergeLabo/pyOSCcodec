@@ -37,6 +37,8 @@ Streaming support (OSC over TCP):
 Sources at:
 https://gitorious.org/pyosc/devel/source/6aaf78b0c1e89942a9c5b1952266791b7ae16012:
 
+
+String are latin-1 encoded and decoded.
 Use decodeOSC(data) to convert a binary OSC message data to a Python list.
 Use OSCMessage() and OSCBundle() to create OSC message.
 

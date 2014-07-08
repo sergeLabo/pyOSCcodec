@@ -25,7 +25,9 @@ See&nbsp;documentation&nbsp;in&nbsp;send_receive.html.<br>
 The&nbsp;aim&nbsp;of&nbsp;this&nbsp;script&nbsp;is&nbsp;to&nbsp;be&nbsp;used&nbsp;in&nbsp;the<br>
 Blender&nbsp;Game&nbsp;Engine&nbsp;in&nbsp;python&nbsp;script.<br>
 &nbsp;<br>
-Blender&nbsp;Game&nbsp;engine&nbsp;don't&nbsp;accept&nbsp;thread,&nbsp;twisted,&nbsp;socketserver,&nbsp;asyncio&nbsp;...</tt></p>
+Blender&nbsp;Game&nbsp;engine&nbsp;don't&nbsp;accept&nbsp;thread,&nbsp;twisted,&nbsp;socketserver,&nbsp;asyncio&nbsp;...<br>
+&nbsp;<br>
+String&nbsp;are&nbsp;latin-1&nbsp;encoded&nbsp;and&nbsp;decoded.</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#aa55cc">
@@ -93,6 +95,10 @@ See&nbsp;OSCcodec&nbsp;documentation&nbsp;in&nbsp;OSCcodec.html.<br>&nbsp;</tt><
 <tr><td>&nbsp;</td>
 <td width="100%">Methods defined here:<br>
 <dl><dt><a name="Send-__init__"><strong>__init__</strong></a>(self, verbose=True)</dt><dd><tt>Create&nbsp;an&nbsp;UDP&nbsp;socket.</tt></dd></dl>
+
+<dl><dt><a name="Send-send_to"><strong>send_to</strong></a>(self, msg, address)</dt><dd><tt><a href="#Send">Send</a>&nbsp;msg&nbsp;to&nbsp;address&nbsp;=&nbsp;tuple&nbsp;=&nbsp;(ip:port)<br>
+msg&nbsp;is&nbsp;an&nbsp;OSC&nbsp;message&nbsp;create&nbsp;with&nbsp;OSCMessage()<br>
+address&nbsp;is&nbsp;a&nbsp;tuple.</tt></dd></dl>
 
 <dl><dt><a name="Send-simple_send_to"><strong>simple_send_to</strong></a>(self, title, value, address)</dt><dd><tt>Create&nbsp;and&nbsp;send&nbsp;OSC&nbsp;message:<br>
 &nbsp;<br>

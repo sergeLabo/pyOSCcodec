@@ -42,6 +42,8 @@ Blender Game Engine in python script.
 
 Blender Game engine don't accept thread, twisted, socketserver, asyncio ...
 
+String are latin-1 encoded and decoded.
+
 '''
 
 
