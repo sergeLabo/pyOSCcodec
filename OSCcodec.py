@@ -39,8 +39,6 @@ https://gitorious.org/pyosc/devel/source/6aaf78b0c1e89942a9c5b1952266791b7ae1601
 
 
 String are latin-1 encoded and decoded.
-    ISO 8859-1 = ISO/CEI 8859-1 = Latin-1
-
 Use decodeOSC(data) to convert a binary OSC message data to a Python list.
 Use OSCMessage() and OSCBundle() to create OSC message.
 
@@ -48,6 +46,7 @@ Use OSCMessage() and OSCBundle() to create OSC message.
 
 import math
 import struct
+import binascii
 
 global FloatTypes
 FloatTypes = [float]
@@ -62,6 +61,17 @@ del timegm
 
 global NTP_units_per_second
 NTP_units_per_second = 0x100000000 # about 232 picoseconds
+
+
+class OSCError(Exception):
+    """Base Class for all OSC-related errors
+    """
+    def __init__(self, message):
+        self.message = message
+
+    def __str__(self):
+        return self.message
+
 
 ######
 #
