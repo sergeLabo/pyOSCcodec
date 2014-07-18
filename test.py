@@ -40,8 +40,8 @@ def main():
     ip_out = "127.0.0.1"
     port_out = 9000
 
-    my_receiver = Receive(ip_in, port_in, buffer_size, verbose=False)
-    my_sender = Send(verbose=False)
+    my_receiver = Receive(ip_in, port_in, buffer_size, verbose=True)
+    my_sender = Send(verbose=True)
 
     print("\n\nTest bug unicode\n")
     test = ['éé éé']
